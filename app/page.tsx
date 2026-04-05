@@ -6,6 +6,7 @@ import { getEvents } from "@/lib/api";
 import { useAuth } from "@/components/AuthProvider";
 import EventCard from "@/components/EventCard";
 import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
 
 interface Event {
   id: string;
@@ -86,7 +87,12 @@ export default function Home() {
           </Link>
         </div>
         {loading ? (
-          <p className="text-center text-muted-foreground">Loading...</p>
+          <div className="flex min-h-[20vh] items-center justify-center">
+            <div className="flex flex-col items-center gap-3">
+              <Loader2 className="size-8 animate-spin text-primary" />
+              <p className="text-sm text-muted-foreground">Loading events...</p>
+            </div>
+          </div>
         ) : upcomingEvents.length === 0 ? (
           <p className="text-center text-muted-foreground">
             No upcoming events yet.

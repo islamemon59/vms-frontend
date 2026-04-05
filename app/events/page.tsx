@@ -18,7 +18,7 @@ import {
   DialogFooter,
   DialogClose,
 } from "@/components/ui/dialog";
-import { PlusIcon } from "lucide-react";
+import { PlusIcon, Loader2 } from "lucide-react";
 
 interface Event {
   id: string;
@@ -180,7 +180,12 @@ export default function EventsPage() {
       </div>
 
       {loading ? (
-        <p className="text-center text-muted-foreground">Loading events...</p>
+        <div className="flex min-h-[40vh] items-center justify-center">
+          <div className="flex flex-col items-center gap-3">
+            <Loader2 className="size-8 animate-spin text-primary" />
+            <p className="text-sm text-muted-foreground">Loading events...</p>
+          </div>
+        </div>
       ) : events.length === 0 ? (
         <p className="text-center text-muted-foreground">
           No events found. Create one to get started!

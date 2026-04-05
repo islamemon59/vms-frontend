@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { getVolunteers } from "@/lib/api";
 import VolunteerTable from "@/components/VolunteerTable";
+import { Loader2 } from "lucide-react";
 
 interface Volunteer {
   id: string;
@@ -34,9 +35,12 @@ export default function VolunteersPage() {
       </div>
 
       {loading ? (
-        <p className="text-center text-muted-foreground">
-          Loading volunteers...
-        </p>
+        <div className="flex min-h-[40vh] items-center justify-center">
+          <div className="flex flex-col items-center gap-3">
+            <Loader2 className="size-8 animate-spin text-primary" />
+            <p className="text-sm text-muted-foreground">Loading volunteers...</p>
+          </div>
+        </div>
       ) : (
         <VolunteerTable volunteers={volunteers} />
       )}

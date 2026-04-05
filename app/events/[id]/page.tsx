@@ -32,6 +32,7 @@ import {
   MapPinIcon,
   UsersIcon,
   TrashIcon,
+  Loader2,
 } from "lucide-react";
 
 interface Volunteer {
@@ -112,8 +113,11 @@ export default function EventDetailPage() {
 
   if (loading) {
     return (
-      <div className="mx-auto max-w-4xl px-4 py-8">
-        <p className="text-center text-muted-foreground">Loading event...</p>
+      <div className="flex min-h-[60vh] items-center justify-center">
+        <div className="flex flex-col items-center gap-3">
+          <Loader2 className="size-8 animate-spin text-primary" />
+          <p className="text-sm text-muted-foreground">Loading event...</p>
+        </div>
       </div>
     );
   }

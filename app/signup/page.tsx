@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { HomeIcon, Loader2 } from "lucide-react";
 
 export default function SignUpPage() {
   const { login } = useAuth();
@@ -46,7 +47,14 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="mx-auto max-w-md px-4 py-20">
+    <div className="flex min-h-screen items-center justify-center px-4">
+      <div className="w-full max-w-md">
+      <div className="mb-6 text-center">
+        <Link href="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
+          <HomeIcon className="size-4" />
+          Back to Home
+        </Link>
+      </div>
       <Card className="shadow-sm">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-extrabold tracking-tight">Sign Up</CardTitle>
@@ -95,7 +103,7 @@ export default function SignUpPage() {
             </div>
             {error && <p className="text-sm text-destructive">{error}</p>}
             <Button type="submit" disabled={submitting} className="w-full">
-              {submitting ? "Creating account..." : "Sign Up"}
+              {submitting ? <><Loader2 className="mr-2 size-4 animate-spin" />Creating account...</> : "Sign Up"}
             </Button>
           </form>
           <p className="mt-4 text-center text-sm text-muted-foreground">
@@ -106,6 +114,7 @@ export default function SignUpPage() {
           </p>
         </CardContent>
       </Card>
+      </div>
     </div>
   );
 }
