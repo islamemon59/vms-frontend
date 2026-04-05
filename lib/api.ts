@@ -65,4 +65,17 @@ export const createParticipation = (data: {
 export const deleteParticipation = (id: string) =>
   API.delete(`/participation/${id}`);
 
+// Volunteer Request APIs
+export const submitVolunteerRequest = (data: {
+  phone: string;
+  address: string;
+  skills: string;
+}) => API.post("/volunteer-requests", data);
+export const getMyVolunteerRequest = () => API.get("/volunteer-requests/me");
+export const getAllVolunteerRequests = () => API.get("/volunteer-requests");
+export const approveVolunteerRequest = (id: string) =>
+  API.patch(`/volunteer-requests/${id}/approve`);
+export const rejectVolunteerRequest = (id: string) =>
+  API.patch(`/volunteer-requests/${id}/reject`);
+
 export default API;

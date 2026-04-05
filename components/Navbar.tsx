@@ -20,6 +20,10 @@ export default function Navbar() {
       navLinks.push({ href: "/volunteers", label: "Volunteers" });
       navLinks.push({ href: "/register", label: "Register" });
       navLinks.push({ href: "/dashboard", label: "Dashboard" });
+      navLinks.push({ href: "/volunteer-requests", label: "Requests" });
+    }
+    if (user.role === "user") {
+      navLinks.push({ href: "/become-volunteer", label: "Become a Volunteer" });
     }
   }
 
@@ -54,6 +58,7 @@ export default function Navbar() {
             <>
               <span className="text-sm text-muted-foreground">{user.name}</span>
               {isAdmin && <Badge variant="default" className="text-xs">Admin</Badge>}
+              {user.role === "volunteer" && <Badge variant="secondary" className="text-xs">Volunteer</Badge>}
               <Button variant="ghost" size="sm" onClick={logout}>
                 <LogOutIcon className="mr-1 size-4" />
                 Logout

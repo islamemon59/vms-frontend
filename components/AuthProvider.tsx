@@ -9,6 +9,7 @@ interface User {
   name: string;
   email: string;
   role: string;
+  volunteerRequestStatus?: string | null;
 }
 
 interface AuthContextType {
@@ -16,7 +17,9 @@ interface AuthContextType {
   loading: boolean;
   login: (token: string, user: User) => void;
   logout: () => void;
+  refreshUser: () => Promise<void>;
   isAdmin: boolean;
+  isVolunteer: boolean;
 }
 
 const AuthContext = createContext<AuthContextType>({
@@ -24,7 +27,9 @@ const AuthContext = createContext<AuthContextType>({
   loading: true,
   login: () => {},
   logout: () => {},
+  refreshUser: async () => {},
   isAdmin: false,
+  isVolunteer: false,
 });
 
 export const useAuth = () => useContext(AuthContext);
@@ -33,7 +38,10 @@ export const useAuth = () => useContext(AuthContext);
 const publicPaths = ["/signin", "/signup", "/"];
 
 // Routes that require admin role
-const adminPaths = ["/dashboard", "/volunteers"];
+const adminPaths = ["/dashboard", "/volunteers", "/register", "/volunteer-requests"];
+
+// Routes that require at least volunteer role
+const volunteerPaths = ["/events"];
 
 export default function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(() => {
@@ -62,6 +70,16 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     localStorage.setItem("token", token);
     localStorage.setItem("user", JSON.stringify(userData));
     setUser(userData);
+  }, []);
+
+  const refreshUser = useCallback(async () => {
+    try {
+      const res = await getMe();
+      setUser(res.data);
+      localStorage.setItem("user", JSON.stringify(res.data));
+    } catch {
+      // ignore
+    }
   }, []);
 
   useEffect(() => {
@@ -114,9 +132,10 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
   }, [user, loading, pathname, router]);
 
   const isAdmin = user?.role === "admin";
+  const isVolunteer = user?.role === "volunteer" || user?.role === "admin";
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout, isAdmin }}>
+    <AuthContext.Provider value={{ user, loading, login, logout, refreshUser, isAdmin, isVolunteer }}>
       {children}
     </AuthContext.Provider>
   );
