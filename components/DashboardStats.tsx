@@ -15,21 +15,24 @@ interface StatCardProps {
 
 function StatCard({ title, value, description, icon }: StatCardProps) {
   return (
-    <Card className="shadow-sm">
-      <CardHeader>
+    <Card className="relative overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group border-border/50 bg-card/60 backdrop-blur-xl">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-sm font-medium text-muted-foreground">
+          <CardTitle className="text-sm font-semibold text-muted-foreground tracking-wide uppercase">
             {title}
           </CardTitle>
-          <div className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
+          <div className="flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary shadow-inner transition-transform duration-300 group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground">
             {icon}
           </div>
         </div>
       </CardHeader>
       <CardContent>
-        <div className="text-3xl font-extrabold tracking-tight">{value}</div>
+        <div className="text-3xl font-black tracking-tight bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent">
+          {value}
+        </div>
         {description && (
-          <p className="mt-1 text-xs text-muted-foreground">{description}</p>
+          <p className="mt-2 text-xs font-medium text-muted-foreground/80">{description}</p>
         )}
       </CardContent>
     </Card>
