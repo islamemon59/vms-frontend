@@ -1,65 +1,113 @@
-import Image from "next/image";
+"use client";
+
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { getEvents } from "@/lib/api";
+import { useAuth } from "@/components/AuthProvider";
+import EventCard from "@/components/EventCard";
+import { Button } from "@/components/ui/button";
+
+interface Event {
+  id: string;
+  title: string;
+  description: string;
+  location: string;
+  date: string;
+  maxVolunteers: number;
+  _count: { participations: number };
+}
 
 export default function Home() {
+  const { user } = useAuth();
+  const [upcomingEvents, setUpcomingEvents] = useState<Event[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getEvents()
+      .then((res) => {
+        const now = new Date();
+        const upcoming = res.data
+          .filter((e: Event) => new Date(e.date) >= now)
+          .slice(0, 3);
+        setUpcomingEvents(upcoming);
+      })
+      .catch(() => setUpcomingEvents([]))
+      .finally(() => setLoading(false));
+  }, []);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="mx-auto max-w-6xl px-4 py-16">
+      {/* Hero */}
+      <section className="mb-20 text-center">
+        <div className="mx-auto mb-6 flex size-16 items-center justify-center rounded-2xl bg-primary/10">
+          <svg className="size-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+          </svg>
+        </div>
+        <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+          Volunteer Management
+          <span className="block text-primary">System</span>
+        </h1>
+        <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+          Organize community events, register volunteers, and track
+          participation — all in one place.
+        </p>
+        <div className="mt-10 flex justify-center gap-4">
+          {user ? (
+            <>
+              <Link href="/events">
+                <Button size="lg" className="text-base px-6">Browse Events</Button>
+              </Link>
+              {user.role === "admin" && (
+                <Link href="/dashboard">
+                  <Button variant="outline" size="lg" className="text-base px-6">Dashboard</Button>
+                </Link>
+              )}
+            </>
+          ) : (
+            <>
+              <Link href="/signin">
+                <Button size="lg" className="text-base px-6">Sign In</Button>
+              </Link>
+              <Link href="/signup">
+                <Button variant="outline" size="lg" className="text-base px-6">Sign Up</Button>
+              </Link>
+            </>
+          )}
+        </div>
+      </section>
+
+      {/* Upcoming Events */}
+      <section>
+        <div className="mb-6 flex items-center justify-between">
+          <h2 className="text-2xl font-semibold">Upcoming Events</h2>
+          <Link href="/events">
+            <Button variant="ghost">View all →</Button>
+          </Link>
+        </div>
+        {loading ? (
+          <p className="text-center text-muted-foreground">Loading...</p>
+        ) : upcomingEvents.length === 0 ? (
+          <p className="text-center text-muted-foreground">
+            No upcoming events yet.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+        ) : (
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {upcomingEvents.map((event) => (
+              <EventCard
+                key={event.id}
+                id={event.id}
+                title={event.title}
+                description={event.description}
+                location={event.location}
+                date={event.date}
+                maxVolunteers={event.maxVolunteers}
+                participantCount={event._count.participations}
+              />
+            ))}
+          </div>
+        )}
+      </section>
     </div>
   );
 }
