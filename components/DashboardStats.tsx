@@ -16,7 +16,7 @@ interface StatCardProps {
 function StatCard({ title, value, description, icon }: StatCardProps) {
   return (
     <Card className="relative overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group border-border/50 bg-card/60 backdrop-blur-xl">
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <CardTitle className="text-sm font-semibold text-muted-foreground tracking-wide uppercase">
@@ -28,7 +28,7 @@ function StatCard({ title, value, description, icon }: StatCardProps) {
         </div>
       </CardHeader>
       <CardContent>
-        <div className="text-3xl font-black tracking-tight bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent">
+        <div className="text-3xl font-black tracking-tight bg-linear-to-br from-foreground to-foreground/70 bg-clip-text text-transparent">
           {value}
         </div>
         {description && (

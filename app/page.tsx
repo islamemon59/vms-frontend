@@ -39,12 +39,12 @@ export default function Home() {
   return (
     <div className="relative isolate overflow-hidden bg-background">
       {/* Decorative Blob */}
-      <div className="absolute top-0 -z-10 h-full w-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/20 via-background to-background" />
+      <div className="absolute top-0 -z-10 h-full w-full bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-primary/20 via-background to-background" />
 
       <div className="mx-auto max-w-6xl px-4 py-24 sm:py-32 lg:py-40">
         {/* Hero Section */}
         <section className="mx-auto flex max-w-4xl flex-col items-center text-center">
-          <div className="mb-8 flex size-20 items-center justify-center rounded-3xl bg-gradient-to-tr from-primary to-primary/40 shadow-xl ring-1 ring-primary/20 transition-transform duration-500 hover:scale-110 hover:rotate-3">
+          <div className="mb-8 flex size-20 items-center justify-center rounded-3xl bg-linear-to-tr from-primary to-primary/40 shadow-xl ring-1 ring-primary/20 transition-transform duration-500 hover:scale-110 hover:rotate-3">
             <svg
               className="size-10 text-white"
               fill="none"
@@ -57,7 +57,7 @@ export default function Home() {
           </div>
           <h1 className="text-5xl font-black tracking-tight sm:text-6xl lg:text-7xl">
             Volunteer Management <br className="hidden sm:block" />
-            <span className="bg-gradient-to-r from-primary to-indigo-500 bg-clip-text text-transparent drop-shadow-sm">System</span>
+            <span className="bg-linear-to-r from-primary to-indigo-500 bg-clip-text text-transparent drop-shadow-sm">System</span>
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground/90 font-medium">
             Empower communities by organizing impactful events, connecting passionate volunteers, and seamlessly tracking every moment of participation.
@@ -88,7 +88,7 @@ export default function Home() {
         </section>
 
         {/* Diagonal Line Separator */}
-        <div className="my-24 h-px w-full bg-gradient-to-r from-transparent via-border to-transparent" />
+        <div className="my-24 h-px w-full bg-linear-to-r from-transparent via-border to-transparent" />
 
         {/* Upcoming Events Section */}
         <section className="relative z-10">

@@ -48,17 +48,17 @@ export default function SignUpPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4 bg-muted/40 relative overflow-hidden py-12">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-primary/10 via-background to-background" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,var(--tw-gradient-stops))] from-primary/10 via-background to-background" />
       <div className="absolute -top-40 -right-40 -z-10 h-96 w-96 rounded-full bg-primary/20 blur-3xl opacity-50" />
       <div className="absolute -bottom-40 -left-40 -z-10 h-96 w-96 rounded-full bg-indigo-500/20 blur-3xl opacity-50" />
       
       <div className="w-full max-w-md relative z-10 animate-in fade-in slide-in-from-bottom-8 duration-700">
         <Card className="shadow-2xl shadow-primary/10 border-border/50 bg-background/60 backdrop-blur-xl">
           <CardHeader className="text-center space-y-2 pb-6">
-             <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-xl bg-gradient-to-tr from-primary to-indigo-500 shadow-xl shadow-primary/30">
+             <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-xl bg-linear-to-tr from-primary to-indigo-500 shadow-xl shadow-primary/30">
               <span className="text-xl font-black text-white">VMS<span className="text-white/80">.</span></span>
             </div>
-            <CardTitle className="text-3xl font-extrabold tracking-tight bg-gradient-to-br from-foreground to-muted-foreground bg-clip-text text-transparent">Create Account</CardTitle>
+            <CardTitle className="text-3xl font-extrabold tracking-tight bg-linear-to-br from-foreground to-muted-foreground bg-clip-text text-transparent">Create Account</CardTitle>
             <CardDescription className="text-base">Join VMS and start making a difference</CardDescription>
           </CardHeader>
           <CardContent className="px-8 pb-8">
@@ -116,7 +116,7 @@ export default function SignUpPage() {
                   {error}
                 </div>
               )}
-              <Button type="submit" disabled={submitting} className="w-full h-11 mt-2 font-bold shadow-lg shadow-primary/25 transition-all hover:-translate-y-0.5 mt-2 active:scale-[0.98]">
+              <Button type="submit" disabled={submitting} className="w-full h-11 mt-2 font-bold shadow-lg shadow-primary/25 transition-all hover:-translate-y-0.5  active:scale-[0.98]">
                 {submitting ? <><Loader2 className="mr-2 size-5 animate-spin" />Creating account...</> : "Sign Up"}
               </Button>
             </form>

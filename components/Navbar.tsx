@@ -34,7 +34,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/60 backdrop-blur-2xl transition-all duration-300 shadow-sm">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 lg:px-8">
         <Link href="/" className="group flex items-center gap-3 text-xl font-black tracking-tight text-foreground transition-colors hover:text-primary">
-          <div className="flex size-9 items-center justify-center rounded-xl bg-gradient-to-tr from-primary to-primary/50 text-white shadow-md shadow-primary/20 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
+          <div className="flex size-9 items-center justify-center rounded-xl bg-linear-to-tr from-primary to-primary/50 text-white shadow-md shadow-primary/20 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
             <HeartHandshakeIcon className="size-5" />
           </div>
           <span>VMS<span className="text-primary">.</span></span>
@@ -69,8 +69,8 @@ export default function Navbar() {
                   {user.role}
                 </span>
               </div>
-              {isAdmin && <Badge variant="default" className="hidden sm:inline-flex text-[10px] font-bold px-2 py-0.5 bg-gradient-to-r from-red-500 to-orange-500 border-none shadow-md shadow-red-500/20">Admin</Badge>}
-              {user.role === "volunteer" && <Badge variant="secondary" className="hidden sm:inline-flex text-[10px] font-bold px-2 py-0.5 bg-gradient-to-r from-blue-500 to-indigo-500 text-white border-none shadow-md shadow-blue-500/20">Volunteer</Badge>}
+              {isAdmin && <Badge variant="default" className="hidden sm:inline-flex text-[10px] font-bold px-2 py-0.5 bg-linear-to-r from-red-500 to-orange-500 border-none shadow-md shadow-red-500/20">Admin</Badge>}
+              {user.role === "volunteer" && <Badge variant="secondary" className="hidden sm:inline-flex text-[10px] font-bold px-2 py-0.5 bg-linear-to-r from-blue-500 to-indigo-500 text-white border-none shadow-md shadow-blue-500/20">Volunteer</Badge>}
               <Button variant="ghost" size="icon" onClick={logout} className="rounded-full hover:bg-destructive/10 hover:text-destructive group transition-colors">
                 <LogOutIcon className="size-5 transition-transform group-hover:-translate-x-0.5" />
               </Button>
